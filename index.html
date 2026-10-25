@@ -1,10 +1,3 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
 <title>Grow a Hiro Kealia Beach</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@700;800&display=swap">
 <style>
@@ -104,7 +97,7 @@ h3 { font: 400 17px var(--display); color: var(--sun); margin: 12px 0 6px; lette
 .bubble { background: #fff; color: #0b1733; border: 3px solid #0b1733; border-radius: 14px; padding: 3px 9px; font: 800 12px var(--body); max-width: 190px; white-space: normal; text-align: center; margin-bottom: 4px; }
 
 /* menu */
-#menu { position: fixed; inset: 0; z-index: 20; background: rgba(5, 12, 30, 0.55); display: flex; align-items: center; justify-content: center; padding: 12px; }
+#menu { position: fixed; inset: 0; z-index: 40; background: rgba(5, 12, 30, 0.55); display: flex; align-items: center; justify-content: center; padding: 12px; }
 #menuBox { width: min(560px, 100%); max-height: min(86vh, 700px); display: flex; flex-direction: column; padding: 12px 14px; touch-action: pan-y; }
 #menuHead { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
 #menuHead b { font: 400 26px var(--display); color: var(--sun); }
@@ -155,7 +148,35 @@ html { overscroll-behavior: none; }
 #stick.live { opacity: 1; background: rgba(255, 255, 255, 0.22); }
 #knob { position: absolute; left: 36px; top: 36px; width: 58px; height: 58px; border-radius: 50%; background: rgba(255, 255, 255, 0.75); box-shadow: 0 2px 0 rgba(0, 0, 0, 0.4); }
 .tb { position: absolute; pointer-events: auto; border-radius: 50%; border: 3px solid var(--chalk); background: rgba(11, 23, 51, 0.82); color: var(--chalk); font: 400 13px var(--display); display: grid; place-items: center; touch-action: none; width: 54px; height: 54px; padding: 0; }
-.tb.down { transform: scale(0.92); filter: brightness(1.35); }
+.tb { transform: scale(var(--bs, 1)); transform-origin: bottom right; opacity: var(--bo, 0.85); }
+.tb.down { transform: scale(calc(var(--bs, 1) * 0.92)); filter: brightness(1.35); }
+body.lefty .tb { transform-origin: bottom left; }
+body.lefty #tFire { right: auto; left: var(--r); }
+body.lefty #tJump { right: auto; left: calc(var(--r) + 96px); }
+body.lefty #tFeed { right: auto; left: var(--r); }
+body.lefty #tUse { right: auto; left: calc(var(--r) + 62px); }
+body.lefty #tBomb { right: auto; left: calc(var(--r) + 124px); }
+body.lefty #tBoard { right: auto; left: var(--r); }
+body.lefty #tTruck { right: auto; left: calc(var(--r) + 62px); }
+body.lefty #stickZone { left: auto; right: 0; }
+body.lefty #stick { left: auto; right: max(22px, env(safe-area-inset-right, 0px)); }
+#touch .tb.custom { left: var(--cx) !important; top: var(--cy) !important; right: auto !important; bottom: auto !important; transform: translate(-50%, -50%) scale(var(--bs, 1)); transform-origin: center; }
+#touch .tb.custom.down { transform: translate(-50%, -50%) scale(calc(var(--bs, 1) * 0.92)); }
+body #hotbar.custom, body #bars.custom, body #prompt.custom { position: fixed !important; left: var(--cx) !important; top: var(--cy) !important; right: auto !important; bottom: auto !important; transform: translate(-50%, -50%) !important; width: max-content; max-width: 100vw; }
+body.editlayout #hotbar, body.editlayout #bars, body.editlayout #prompt { pointer-events: auto; outline: 3px dashed var(--sun); outline-offset: 4px; cursor: grab; touch-action: none; }
+body.editlayout #prompt { display: block !important; }
+body.editlayout #prompt:empty::before { content: 'Feed Hiro prompt'; }
+body.editlayout #stickZone { pointer-events: none; }
+body.editlayout .tb { outline: 3px dashed var(--sun); outline-offset: 3px; opacity: 1; cursor: grab; }
+#layoutBar { position: fixed; left: 50%; top: max(10px, env(safe-area-inset-top, 0px)); transform: translateX(-50%); z-index: 50; display: flex; gap: 8px; align-items: center; padding: 8px 12px; text-align: center; }
+#layoutBar span { font: 400 14px var(--display); color: var(--sun); }
+#layoutBar button { padding: 6px 14px; border-radius: 10px; border: 3px solid var(--chalk); background: #2fa84a; font: 400 15px var(--display); }
+#layoutBar button.hot { background: var(--pink); }
+body.nohints #hints { display: none; }
+.srow label { font: 400 16px var(--display); flex: none; min-width: 120px; }
+.srow input[type=range] { flex: 1; min-width: 0; accent-color: var(--sun); height: 28px; }
+.srow output { flex: none; width: 52px; text-align: right; font: 400 14px var(--display); color: var(--sun); }
+.buy.off { background: #3a4260; }
 #tFire { right: var(--r); bottom: var(--b); width: 86px; height: 86px; background: rgba(255, 79, 160, 0.9); font-size: 19px; }
 #tJump { right: calc(var(--r) + 96px); bottom: calc(var(--b) + 6px); }
 #tFeed { right: var(--r); bottom: calc(var(--b) + 98px); background: rgba(255, 138, 42, 0.9); }
@@ -165,7 +186,7 @@ html { overscroll-behavior: none; }
 #tTruck { right: calc(var(--r) + 62px); bottom: calc(var(--b) + 166px); }
 #howTouch { display: none; margin-top: 14px; padding: 10px 14px; text-align: left; font-size: 13px; line-height: 1.5; }
 #howTouch b { color: var(--sun); font: 400 14px var(--display); }
-#touchBtn { display: block; margin: 12px auto 0; background: rgba(11, 23, 51, 0.7); border: 2px solid var(--chalk); border-radius: 99px; padding: 5px 16px; font-size: 12px; }
+#settingsBtn, #touchBtn { display: block; margin: 12px auto 0; background: rgba(11, 23, 51, 0.7); border: 2px solid var(--chalk); border-radius: 99px; padding: 5px 16px; font-size: 12px; }
 body.touch #how { display: none; }
 body.touch #howTouch { display: block; }
 body.touch #hints, body.touch #cross { display: none; }
@@ -198,9 +219,6 @@ body.touch #wavetxt { font-size: 11px; }
 }
 @media (prefers-reduced-motion: reduce) { .toast, #banner { animation: none; transition: none; } }
 </style>
-</head>
-<body>
-
 
 <canvas id="c"></canvas>
 <div id="tags"></div><div id="floats"></div><div id="hurt"></div>
@@ -245,10 +263,12 @@ body.touch #wavetxt { font-size: 11px; }
   <button class="tb" id="tBoard">FLY</button><button class="tb" id="tTruck">TRUCK</button>
 </div>
 
+<div id="layoutBar" class="panel" hidden><span>Drag buttons</span><button id="layoutReset" class="hot">Reset</button><button id="layoutDone">Done</button></div>
+
 <div id="menu" hidden>
   <div id="menuBox" class="panel">
     <div id="menuHead"><b>Supply Crate</b><span id="menucash"></span><button id="menuClose" aria-label="Close menu">X</button></div>
-    <div id="tabs"><button data-tab="shop">Shop</button><button data-tab="house">House</button><button data-tab="rebirth">Rebirth</button><button data-tab="bug">Bombug</button></div>
+    <div id="tabs"><button data-tab="shop">Shop</button><button data-tab="house">House</button><button data-tab="rebirth">Rebirth</button><button data-tab="bug">Bombug</button><button data-tab="settings">Settings</button></div>
     <div id="menubody"></div>
   </div>
 </div>
@@ -261,6 +281,7 @@ body.touch #wavetxt { font-size: 11px; }
     <p class="tagline">Collect. Feed. Defend. Rebirth.</p>
     <button id="startBtn">Play</button>
     <button id="resetBtn" hidden>Erase saved progress</button>
+    <button id="settingsBtn" class="smallbtn">Settings</button>
     <button id="touchBtn">Touch controls</button>
     <p id="titleMsg"></p>
     <div id="howTouch" class="panel">
@@ -425,6 +446,13 @@ body.touch #wavetxt { font-size: 11px; }
   };
   G.computeTouchMode = () => (G.touchMode = G.touchPref === 'on' || (G.touchPref === 'auto' && G.detectTouch()));
   G.computeTouchMode();
+
+  // Player settings (saved separately from game progress)
+  G.SETTINGS_DEFAULT = { sens: 1, invertY: false, aimAssist: true, btnScale: 1, btnOpacity: 0.85, lefty: false, mapShow: true, mapScale: 1, mapOpacity: 1, hints: true, layout: {} };
+  G.settings = Object.assign({}, G.SETTINGS_DEFAULT);
+  try { Object.assign(G.settings, JSON.parse(localStorage.getItem('ghk-settings') || '{}')); } catch (e) { /* ignore */ }
+  if (!G.settings.layout || typeof G.settings.layout !== 'object') G.settings.layout = {};
+  G.saveSettings = () => { try { localStorage.setItem('ghk-settings', JSON.stringify(G.settings)); } catch (e) { /* ignore */ } };
 
   G.house = { hp: 300, maxHp: 300 };
   G.wave = { n: 0, timer: 35, active: false, boss: false };
@@ -1733,7 +1761,7 @@ body.touch #wavetxt { font-size: 11px; }
       let point;
       if (d.y < -0.02) { const t = G.clamp((1.6 - o.y) / d.y, 18, 110); point = o.clone().addScaledVector(d, t); }
       else point = o.clone().addScaledVector(d, 80);
-      if (G.touchMode) { // aim assist: snap to the enemy nearest the screen center
+      if (G.touchMode && G.settings.aimAssist) { // aim assist: snap to the enemy nearest the screen center
         let best = null, bestA = 0.4;
         const to = new T.Vector3();
         for (const e of G.enemies.list) {
@@ -1946,7 +1974,8 @@ body.touch #wavetxt { font-size: 11px; }
   G.cameraShake = (v) => { G.shake = Math.max(G.shake, v); };
 
   function look(dx, dy) {
-    P.camYaw -= dx * 0.0032; P.camPitch = G.clamp(P.camPitch + dy * 0.0028, -0.15, 1.25);
+    const s = G.settings.sens, iy = G.settings.invertY ? -1 : 1;
+    P.camYaw -= dx * 0.0032 * s; P.camPitch = G.clamp(P.camPitch + dy * 0.0028 * s * iy, -0.15, 1.25);
     lastLook = performance.now();
   }
   G.look = look;
@@ -2025,13 +2054,46 @@ body.touch #wavetxt { font-size: 11px; }
       U.applyTouch();
       const tb = $('touchBtn');
       const label = () => { tb.textContent = 'Touch controls: ' + (G.touchPref === 'auto' ? 'Auto (' + (G.touchMode ? 'on' : 'off') + ')' : G.touchPref); };
-      tb.onclick = () => {
+      U.cycleTouch = () => {
         G.touchPref = G.touchPref === 'auto' ? 'on' : G.touchPref === 'on' ? 'off' : 'auto';
         try { localStorage.setItem('ghk-touch', G.touchPref); } catch (e) { /* ignore */ }
         G.computeTouchMode(); U.applyTouch(); label();
       };
+      tb.onclick = U.cycleTouch;
       label();
+      $('settingsBtn').onclick = () => U.openSettings();
+      $('menubody').addEventListener('input', (e) => {
+        const el = e.target.closest('[data-set]'); if (!el || el.type !== 'range') return;
+        G.settings[el.dataset.set] = parseFloat(el.value); G.saveSettings(); U.applySettings();
+        const o = el.parentNode.querySelector('output'); if (o) o.textContent = fmtSet(el.dataset.set, G.settings[el.dataset.set]);
+      });
+      setupLayoutEditor();
+      U.applySettings();
       U.refreshAll();
+    },
+    applySettings() {
+      const s = G.settings, b = document.body.style;
+      b.setProperty('--bs', s.btnScale); b.setProperty('--bo', s.btnOpacity);
+      document.body.classList.toggle('lefty', !!s.lefty);
+      document.body.classList.toggle('nohints', !s.hints);
+      const lay = s.layout || {};
+      document.querySelectorAll('#touch .tb, #hotbar, #bars, #prompt').forEach((b) => {
+        const p = lay[b.id];
+        b.classList.toggle('custom', !!p);
+        if (p) { b.style.setProperty('--cx', p.x * 100 + '%'); b.style.setProperty('--cy', p.y * 100 + '%'); }
+      });
+      const mm = $('minimap'); mm.style.display = s.mapShow ? '' : 'none'; mm.style.zoom = s.mapScale; mm.style.opacity = s.mapOpacity;
+    },
+    startLayoutEdit() {
+      editing = true; document.body.classList.add('editlayout');
+      $('menu').hidden = true; $('layoutBar').hidden = false; G.paused = true;
+      $('touch').hidden = false; $('title').hidden = true; $('hud').hidden = false;
+      if (!G.touchMode) $('touch').style.pointerEvents = 'auto';
+    },
+    openSettings() {
+      const m = $('menu');
+      if (G.started) { if (m.hidden) U.toggleMenu(); tab = 'settings'; renderMenu(); return; }
+      tab = 'settings'; m.hidden = false; renderMenu();
     },
     applyTouch() {
       $('touch').hidden = !G.touchMode;
@@ -2132,8 +2194,8 @@ body.touch #wavetxt { font-size: 11px; }
     },
 
     toggleMenu() {
-      if (!G.started) return;
       const m = $('menu');
+      if (!G.started) { if (!m.hidden) m.hidden = true; return; }
       if (m.hidden) {
         m.hidden = false; G.paused = true; rbConfirm = false; renderMenu();
         if (document.pointerLockElement) document.exitPointerLock();
@@ -2184,7 +2246,8 @@ body.touch #wavetxt { font-size: 11px; }
 
   function renderMenu() {
     document.querySelectorAll('#tabs button').forEach((b) => b.classList.toggle('on', b.dataset.tab === tab));
-    setText('menucash', '$' + G.fmt(G.S.cash));
+    setText('menucash', G.started ? '$' + G.fmt(G.S.cash) : '');
+    $('menuHead').firstElementChild.textContent = tab === 'settings' ? 'Settings' : 'Supply Crate';
     const S = G.S; let h = '';
     if (tab === 'shop') {
       h += '<h3>Heals</h3>';
@@ -2206,6 +2269,17 @@ body.touch #wavetxt { font-size: 11px; }
       h += '<h3>Bonuses</h3><ul class="perks">';
       for (let i = 1; i <= 10; i++) { const p = G.REBIRTH_PERKS[i] || (i + ' cash bonus'); h += '<li class="' + (S.rb >= i ? 'got' : '') + '"><b>Rebirth ' + i + '</b> ' + (G.REBIRTH_PERKS[i] || '+50% cash') + '</li>'; }
       h += '</ul>';
+    } else if (tab === 'settings') {
+      const s = G.settings;
+      const sl = (k, name, min, max, step) => '<div class="mcard srow"><label>' + name + '</label><input type="range" data-set="' + k + '" min="' + min + '" max="' + max + '" step="' + step + '" value="' + s[k] + '"><output>' + fmtSet(k, s[k]) + '</output></div>';
+      const tg = (k, name) => '<div class="mcard srow"><label>' + name + '</label><button class="buy' + (s[k] ? '' : ' off') + '" data-act="set" data-id="' + k + '">' + (s[k] ? 'On' : 'Off') + '</button></div>';
+      h += '<h3>Camera</h3>' + sl('sens', 'Look sensitivity', 0.3, 3, 0.05) + tg('invertY', 'Invert Y axis') + tg('aimAssist', 'Aim assist (touch)');
+      h += '<h3>Buttons</h3>';
+      h += '<div class="mcard srow"><label>Touch controls</label><button class="buy" data-act="touchmode">' + (G.touchPref === 'auto' ? 'Auto (' + (G.touchMode ? 'on' : 'off') + ')' : G.touchPref) + '</button></div>';
+      h += sl('btnScale', 'Button size', 0.75, 1.3, 0.05) + sl('btnOpacity', 'Button opacity', 0.25, 1, 0.05) + tg('lefty', 'Left-handed layout') + tg('hints', 'Show key hints');
+      h += '<h3>Map</h3>' + tg('mapShow', 'Show minimap') + sl('mapScale', 'Map size', 0.6, 1.7, 0.05) + sl('mapOpacity', 'Map opacity', 0.3, 1, 0.05);
+      h += '<div class="mcard srow"><label>Button layout</label><button class="buy" data-act="layout">Edit</button></div>';
+      h += '<div class="mcard srow"><label>Defaults</label><button class="buy hot" data-act="setreset">Reset</button></div>';
     } else {
       G.BOMBUG.forEach((x, i) => {
         const st = i === S.bug ? 'current' : i < S.bug ? 'owned' : '';
@@ -2215,12 +2289,17 @@ body.touch #wavetxt { font-size: 11px; }
     }
     $('menubody').innerHTML = h;
   }
+  const fmtSet = (k, v) => (k === 'btnOpacity' || k === 'mapOpacity' ? Math.round(v * 100) + '%' : v.toFixed(2) + 'x');
   const nextPerk = (n) => G.REBIRTH_PERKS[n] || '+50% cash';
 
   function spend(c) { if (G.S.cash < c) { G.sfx('no'); return false; } G.S.cash -= c; G.sfx('buy'); return true; }
   function onMenuClick(e) {
     const b = e.target.closest('[data-act]'); if (!b || b.disabled) return;
     const S = G.S, id = b.dataset.id, act = b.dataset.act;
+    if (act === 'layout') { U.startLayoutEdit(); return; }
+    if (act === 'set') { G.settings[id] = !G.settings[id]; G.saveSettings(); U.applySettings(); renderMenu(); return; }
+    if (act === 'setreset') { Object.assign(G.settings, G.SETTINGS_DEFAULT, { layout: {} }); G.saveSettings(); U.applySettings(); renderMenu(); return; }
+    if (act === 'touchmode') { U.cycleTouch(); renderMenu(); return; }
     if (act === 'heal') { if (spend(G.HEALS[id].cost)) S.heals[id]++; }
     else if (act === 'weapon') { if (spend(G.WEAPONS[id].cost)) { S.weapons[id] = true; G.combat.weapon = id; } }
     else if (act === 'veh') { if (spend(G.VEH[id].cost)) { S.veh[id] = true; G.player.refreshVehicles(); U.toast(G.VEH[id].name + ' ready.', 'good'); } }
@@ -2247,6 +2326,34 @@ body.touch #wavetxt { font-size: 11px; }
     G.fx.burst(new T.Vector3(G.HOME.x, 4, G.HOME.z), 0xffd23f, 40, 12, 1.4);
     G.persist(); U.refreshAll(); U.toggleMenu();
     U.banner('Rebirth ' + S.rb + ': ' + nextPerk(S.rb), 'good');
+  }
+
+  // ---------- Button layout editor ----------
+  let editing = false;
+  function setupLayoutEditor() {
+    const touch = document;
+    let drag = null;
+    touch.addEventListener('pointerdown', (e) => {
+      if (!editing || e.target.closest('#layoutBar')) return;
+      e.stopPropagation(); e.preventDefault();
+      const b = e.target.closest('#touch .tb, #hotbar, #bars, #prompt'); if (!b) return;
+      drag = { b, id: e.pointerId }; b.setPointerCapture(e.pointerId);
+    }, true);
+    touch.addEventListener('pointermove', (e) => {
+      if (!editing || !drag || e.pointerId !== drag.id) return;
+      const x = G.clamp(e.clientX / window.innerWidth, 0.04, 0.96), y = G.clamp(e.clientY / window.innerHeight, 0.06, 0.96);
+      G.settings.layout[drag.b.id] = { x: Math.round(x * 1000) / 1000, y: Math.round(y * 1000) / 1000 };
+      U.applySettings();
+    });
+    const end = (e) => { if (drag && e.pointerId === drag.id) { drag = null; G.saveSettings(); } };
+    touch.addEventListener('pointerup', end); touch.addEventListener('pointercancel', end);
+    $('layoutReset').onclick = () => { G.settings.layout = {}; document.querySelectorAll('#touch .tb, #hotbar, #bars, #prompt').forEach((b) => { b.style.removeProperty('--cx'); b.style.removeProperty('--cy'); }); G.saveSettings(); U.applySettings(); };
+    $('layoutDone').onclick = () => {
+      editing = false; document.body.classList.remove('editlayout'); $('layoutBar').hidden = true;
+      $('touch').style.pointerEvents = ''; U.applyTouch();
+      if (!G.started) { $('title').hidden = false; $('hud').hidden = true; return; }
+      G.paused = false; U.toggleMenu(); tab = 'settings'; renderMenu();
+    };
   }
 
   // ---------- Touch ----------
@@ -2372,6 +2479,3 @@ body.touch #wavetxt { font-size: 11px; }
 })();
 
 </script>
-
-</body>
-</html>
