@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <title>Grow a Hiro Kealia Beach</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@700;800&display=swap">
 <style>
@@ -22,7 +24,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .panel { background: var(--panel); border: 3px solid var(--chalk); border-radius: 14px; box-shadow: 0 4px 0 rgba(0, 0, 0, 0.45); }
 h3 { font: 400 17px var(--display); color: var(--sun); margin: 12px 0 6px; letter-spacing: 0.04em; text-transform: uppercase; }
 
-#hud { position: fixed; inset: 0; pointer-events: none; }
+#hud { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
 #hud > * { pointer-events: none; }
 #hud button, #hud .panel.click { pointer-events: auto; }
 #left { position: absolute; left: max(12px, env(safe-area-inset-left, 0px)); top: max(12px, env(safe-area-inset-top, 0px)); width: min(290px, 62vw); display: flex; flex-direction: column; gap: 8px; }
@@ -102,7 +104,7 @@ h3 { font: 400 17px var(--display); color: var(--sun); margin: 12px 0 6px; lette
 .bubble { background: #fff; color: #0b1733; border: 3px solid #0b1733; border-radius: 14px; padding: 3px 9px; font: 800 12px var(--body); max-width: 190px; white-space: normal; text-align: center; margin-bottom: 4px; }
 
 /* menu */
-#menu { position: fixed; inset: 0; background: rgba(5, 12, 30, 0.55); display: flex; align-items: center; justify-content: center; padding: 12px; }
+#menu { position: fixed; inset: 0; z-index: 20; background: rgba(5, 12, 30, 0.55); display: flex; align-items: center; justify-content: center; padding: 12px; }
 #menuBox { width: min(560px, 100%); max-height: min(86vh, 700px); display: flex; flex-direction: column; padding: 12px 14px; touch-action: pan-y; }
 #menuHead { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
 #menuHead b { font: 400 26px var(--display); color: var(--sun); }
@@ -128,7 +130,7 @@ h3 { font: 400 17px var(--display); color: var(--sun); margin: 12px 0 6px; lette
 .perks b { color: var(--sun); font: 400 14px var(--display); margin-right: 6px; }
 
 /* title */
-#title { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; padding: 14px; background: radial-gradient(ellipse at center, rgba(8, 22, 60, 0.15), rgba(8, 22, 60, 0.7)); overflow-y: auto; touch-action: pan-y; }
+#title { position: fixed; inset: 0; z-index: 30; display: flex; align-items: center; justify-content: center; padding: 14px; background: radial-gradient(ellipse at center, rgba(8, 22, 60, 0.15), rgba(8, 22, 60, 0.7)); overflow-y: auto; touch-action: pan-y; }
 #titleBox { text-align: center; max-width: 560px; width: 100%; }
 .logo1, .logo2, .logo3 { font-family: var(--display); font-weight: 400; margin: 0; line-height: 0.92; -webkit-text-stroke: 7px #0b1733; paint-order: stroke fill; text-shadow: 0 7px 0 #0b1733; transform: rotate(-3deg); }
 .logo1 { font-size: clamp(54px, 15vw, 96px); color: #fff; }
@@ -146,21 +148,36 @@ h3 { font: 400 17px var(--display); color: var(--sun); margin: 12px 0 6px; lette
 #how p { grid-column: 1 / -1; margin: 6px 0 0; opacity: 0.9; font-weight: 700; }
 
 /* touch */
-#touch { position: fixed; inset: 0; pointer-events: none; }
-#stick { position: absolute; left: max(18px, env(safe-area-inset-left, 0px)); bottom: max(18px, env(safe-area-inset-bottom, 0px)); width: 120px; height: 120px; border-radius: 50%; background: rgba(255, 255, 255, 0.14); border: 3px solid rgba(255, 255, 255, 0.5); pointer-events: auto; touch-action: none; }
-#knob { position: absolute; left: 36px; top: 36px; width: 48px; height: 48px; border-radius: 50%; background: rgba(255, 255, 255, 0.6); }
-.tb { position: absolute; pointer-events: auto; border-radius: 50%; border: 3px solid var(--chalk); background: rgba(11, 23, 51, 0.8); font: 400 13px var(--display); display: grid; place-items: center; touch-action: none; width: 52px; height: 52px; }
-#tFire { right: max(16px, env(safe-area-inset-right, 0px)); bottom: max(20px, env(safe-area-inset-bottom, 0px)); width: 82px; height: 82px; background: rgba(255, 79, 160, 0.85); font-size: 18px; }
-#tJump { right: 112px; bottom: max(22px, env(safe-area-inset-bottom, 0px)); }
-#tFeed { right: 16px; bottom: 116px; background: rgba(255, 138, 42, 0.85); }
-#tUse { right: 76px; bottom: 112px; } #tBomb { right: 134px; bottom: 100px; background: rgba(79, 160, 40, 0.85); }
-#tBoard { right: 16px; bottom: 176px; } #tTruck { right: 76px; bottom: 172px; }
-#tMenu { left: 50%; margin-left: -26px; bottom: 150px; width: 52px; background: rgba(47, 168, 74, 0.85); }
+html { overscroll-behavior: none; }
+#touch { position: fixed; inset: 0; pointer-events: none; z-index: 4; --r: max(14px, env(safe-area-inset-right, 0px)); --b: max(18px, env(safe-area-inset-bottom, 0px)); }
+#stickZone { position: absolute; left: 0; bottom: 0; width: 46%; height: 62%; pointer-events: auto; touch-action: none; }
+#stick { position: absolute; left: max(22px, env(safe-area-inset-left, 0px)); bottom: var(--b); width: 130px; height: 130px; border-radius: 50%; background: rgba(255, 255, 255, 0.12); border: 3px solid rgba(255, 255, 255, 0.45); pointer-events: none; opacity: 0.7; }
+#stick.live { opacity: 1; background: rgba(255, 255, 255, 0.22); }
+#knob { position: absolute; left: 36px; top: 36px; width: 58px; height: 58px; border-radius: 50%; background: rgba(255, 255, 255, 0.75); box-shadow: 0 2px 0 rgba(0, 0, 0, 0.4); }
+.tb { position: absolute; pointer-events: auto; border-radius: 50%; border: 3px solid var(--chalk); background: rgba(11, 23, 51, 0.82); color: var(--chalk); font: 400 13px var(--display); display: grid; place-items: center; touch-action: none; width: 54px; height: 54px; padding: 0; }
+.tb.down { transform: scale(0.92); filter: brightness(1.35); }
+#tFire { right: var(--r); bottom: var(--b); width: 86px; height: 86px; background: rgba(255, 79, 160, 0.9); font-size: 19px; }
+#tJump { right: calc(var(--r) + 96px); bottom: calc(var(--b) + 6px); }
+#tFeed { right: var(--r); bottom: calc(var(--b) + 98px); background: rgba(255, 138, 42, 0.9); }
+#tUse { right: calc(var(--r) + 62px); bottom: calc(var(--b) + 104px); }
+#tBomb { right: calc(var(--r) + 124px); bottom: calc(var(--b) + 70px); background: rgba(79, 160, 40, 0.9); }
+#tBoard { right: var(--r); bottom: calc(var(--b) + 160px); }
+#tTruck { right: calc(var(--r) + 62px); bottom: calc(var(--b) + 166px); }
+#howTouch { display: none; margin-top: 14px; padding: 10px 14px; text-align: left; font-size: 13px; line-height: 1.5; }
+#howTouch b { color: var(--sun); font: 400 14px var(--display); }
+#touchBtn { display: block; margin: 12px auto 0; background: rgba(11, 23, 51, 0.7); border: 2px solid var(--chalk); border-radius: 99px; padding: 5px 16px; font-size: 12px; }
+body.touch #how { display: none; }
+body.touch #howTouch { display: block; }
 body.touch #hints, body.touch #cross { display: none; }
-body.touch #bottom { bottom: 150px; }
-body.touch #bars { width: min(240px, 50vw); }
-body.touch #hotbar { position: fixed; right: max(10px, env(safe-area-inset-right, 0px)); top: 192px; flex-direction: column; flex-wrap: wrap-reverse; max-height: 44vh; gap: 3px; }
-body.touch .slot { width: 52px; height: 36px; font-size: 8px; }
+body.touch .buy { min-height: 42px; }
+body.touch #bottom { bottom: calc(max(18px, env(safe-area-inset-bottom, 0px)) + 282px); }
+body.touch #bars { width: min(260px, 56vw); }
+body.touch #hotbar { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(max(18px, env(safe-area-inset-bottom, 0px)) + 236px); flex-wrap: nowrap; gap: 3px; width: max-content; max-width: 100vw; }
+body.touch .slot { width: min(10.4vw, 48px); height: 38px; font-size: 7.5px; padding: 3px 1px; border-width: 2px; }
+body.touch .slot kbd { display: none; }
+body.touch #left { width: min(220px, 56vw); }
+body.touch #stats { display: none; }
+body.touch #wavetxt { font-size: 11px; }
 
 @media (max-width: 720px) {
   #minimap { width: 90px; height: 120px; }
@@ -170,7 +187,15 @@ body.touch .slot { width: 52px; height: 36px; font-size: 8px; }
   #bagbox { display: none; }
   #cash { font-size: 24px; }
 }
-@media (max-height: 520px) { #bagbox, #stats { display: none; } #title { align-items: flex-start; } }
+@media (max-height: 520px) {
+  #bagbox, #stats { display: none; } #title { align-items: flex-start; }
+  body.touch #bottom { bottom: max(10px, env(safe-area-inset-bottom, 0px)); }
+  body.touch #hotbar { bottom: auto; top: max(8px, env(safe-area-inset-top, 0px)); left: calc(max(12px, env(safe-area-inset-left, 0px)) + 236px); transform: none; }
+  body.touch .slot { width: 42px; height: 34px; }
+  body.touch #minimap { width: 78px; height: 104px; }
+  body.touch #wavetxt { display: none; }
+  #stickZone { height: 78%; }
+}
 @media (prefers-reduced-motion: reduce) { .toast, #banner { animation: none; transition: none; } }
 </style>
 </head>
@@ -213,10 +238,11 @@ body.touch .slot { width: 52px; height: 36px; font-size: 8px; }
 </div>
 
 <div id="touch" hidden>
+  <div id="stickZone"></div>
   <div id="stick"><div id="knob"></div></div>
   <button class="tb" id="tFire">FIRE</button><button class="tb" id="tJump">JUMP</button>
   <button class="tb" id="tFeed">FEED</button><button class="tb" id="tUse">USE</button><button class="tb" id="tBomb">BOMB</button>
-  <button class="tb" id="tBoard">FLY</button><button class="tb" id="tTruck">TRUCK</button><button class="tb" id="tMenu">SHOP</button>
+  <button class="tb" id="tBoard">FLY</button><button class="tb" id="tTruck">TRUCK</button>
 </div>
 
 <div id="menu" hidden>
@@ -235,7 +261,15 @@ body.touch .slot { width: 52px; height: 36px; font-size: 8px; }
     <p class="tagline">Collect. Feed. Defend. Rebirth.</p>
     <button id="startBtn">Play</button>
     <button id="resetBtn" hidden>Erase saved progress</button>
+    <button id="touchBtn">Touch controls</button>
     <p id="titleMsg"></p>
+    <div id="howTouch" class="panel">
+      <div><b>Left thumb</b> move. Push to the edge to sprint.</div>
+      <div><b>Drag the view</b> with your other thumb to look around.</div>
+      <div><b>FIRE</b> auto-aims at nearby Da Boiz.</div>
+      <div><b>FEED</b> when you stand next to Hiro. <b>SHOP</b> upgrades your house.</div>
+      <div><b>BOMB, FLY, TRUCK</b> use Bombug and your vehicles.</div>
+    </div>
     <div id="how" class="panel">
       <div><kbd>WASD</kbd> move, Shift sprint</div><div><kbd>Click</kbd> fire weapon</div>
       <div><kbd>F</kbd> feed Hiro</div><div><kbd>E</kbd> revive, drive, use</div>
@@ -380,6 +414,17 @@ body.touch .slot { width: 52px; height: 36px; font-size: 8px; }
   G.luckChance = () => Math.min(0.35, G.S.stats.luck * 0.005);
   G.income = () => 3 * G.S.hiro.level * G.cashMult();
   G.bagCount = () => Object.values(G.S.inv).reduce((a, b) => a + b, 0);
+
+  // Touch controls: 'auto' detects phones/tablets, 'on' and 'off' force it
+  G.touchPref = 'auto';
+  try { G.touchPref = localStorage.getItem('ghk-touch') || 'auto'; } catch (e) { /* ignore */ }
+  G.detectTouch = () => {
+    const coarse = window.matchMedia && matchMedia('(pointer: coarse)').matches;
+    const hasTouch = (navigator.maxTouchPoints || 0) > 0 || 'ontouchstart' in window;
+    return coarse || (hasTouch && Math.min(window.innerWidth, window.innerHeight) < 900);
+  };
+  G.computeTouchMode = () => (G.touchMode = G.touchPref === 'on' || (G.touchPref === 'auto' && G.detectTouch()));
+  G.computeTouchMode();
 
   G.house = { hp: 300, maxHp: 300 };
   G.wave = { n: 0, timer: 35, active: false, boss: false };
@@ -983,7 +1028,7 @@ body.touch .slot { width: 52px; height: 36px; font-size: 8px; }
       scene.fog = new T.Fog(0xcdeeff, 170, 560);
       scene.add(new T.HemisphereLight(0xcfeeff, 0x6fae5a, 0.85));
       sun = new T.DirectionalLight(0xfff1d0, 0.95);
-      sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048);
+      sun.castShadow = true; sun.shadow.mapSize.set(G.touchMode ? 1024 : 2048, G.touchMode ? 1024 : 2048);
       const sc = sun.shadow.camera; sc.left = -60; sc.right = 60; sc.top = 60; sc.bottom = -60; sc.near = 10; sc.far = 260;
       sun.shadow.bias = -0.0005;
       scene.add(sun, sun.target);
@@ -1644,9 +1689,11 @@ body.touch .slot { width: 52px; height: 36px; font-size: 8px; }
   let scene, camera, canvas, parts, model, boardMesh, bug, truck = null, gun = {};
   let firing = false, dragging = false, locked = false, shootT = 0, faceT = 0, reviveProg = 0, lastLook = 0;
   let vx = 0, vz = 0, grounded = true, sprintLock = 0, camShakeV = new T.Vector3();
-  G.touch = { mx: 0, my: 0, fire: false, jump: false };
+  G.touch = { mx: 0, my: 0, mag: 0, fire: false, jump: false };
 
   const angDiff = (a, b) => Math.atan2(Math.sin(b - a), Math.cos(b - a));
+  G.holdKey = (code, on) => { keys[code] = on; };
+  const tk = (key, tap) => (G.touchMode ? tap : key);
 
   const P = (G.player = {
     pos: new T.Vector3(G.HOME.x + 16, 0, G.HOME.z + 8),
@@ -1686,6 +1733,18 @@ body.touch .slot { width: 52px; height: 36px; font-size: 8px; }
       let point;
       if (d.y < -0.02) { const t = G.clamp((1.6 - o.y) / d.y, 18, 110); point = o.clone().addScaledVector(d, t); }
       else point = o.clone().addScaledVector(d, 80);
+      if (G.touchMode) { // aim assist: snap to the enemy nearest the screen center
+        let best = null, bestA = 0.4;
+        const to = new T.Vector3();
+        for (const e of G.enemies.list) {
+          if (e.dead) continue;
+          to.set(e.pos.x, e.pos.y + 1.4 * e.scale, e.pos.z).sub(o);
+          const dist = to.length(); if (dist > 65 || dist < 3) continue;
+          const a = Math.acos(G.clamp(to.dot(d) / dist, -1, 1));
+          if (a < bestA) { bestA = a; best = e; }
+        }
+        if (best) point = new T.Vector3(best.pos.x, best.pos.y + 1.4 * best.scale, best.pos.z);
+      }
       const h = new T.Vector3(point.x - P.pos.x, 0, point.z - P.pos.z).normalize();
       const origin = new T.Vector3(P.pos.x + h.x * 0.9, P.pos.y + (P.mode === 'board' ? 2.2 : 1.8), P.pos.z + h.z * 0.9);
       return { origin, dir: point.clone().sub(origin).normalize(), point };
@@ -1787,7 +1846,7 @@ body.touch .slot { width: 52px; height: 36px; font-size: 8px; }
       faceT -= dt; shootT -= dt;
 
       if (P.mode === 'foot') {
-        const sprint = (keys.ShiftLeft || keys.ShiftRight) && moving && P.stamina > 0 && sprintLock <= 0;
+        const sprint = (keys.ShiftLeft || keys.ShiftRight || (G.touchMode && G.touch.mag > 0.93)) && moving && P.stamina > 0 && sprintLock <= 0;
         if (sprint) { P.stamina -= 24 * dt; if (P.stamina <= 0) sprintLock = 1.2; }
         else P.stamina = Math.min(stM, P.stamina + 20 * dt);
         sprintLock -= dt;
@@ -1857,13 +1916,13 @@ body.touch .slot { width: 52px; height: 36px; font-size: 8px; }
       // revive hold + prompt
       const dH = P.pos.distanceTo(G.hiro.pos);
       let prompt = null;
-      if (P.mode === 'truck') prompt = 'E or T to exit the truck';
+      if (P.mode === 'truck') prompt = tk('E or T to exit the truck', 'Tap USE to exit the truck');
       else if (!G.hiro.alive && dH < 14) {
-        prompt = G.S.heals.water > 0 ? 'Press E: use Revival Water on Hiro' : 'Hold E to revive Hiro';
+        prompt = G.S.heals.water > 0 ? tk('Press E: use Revival Water on Hiro', 'Tap USE: Revival Water on Hiro') : tk('Hold E to revive Hiro', 'Hold USE to revive Hiro');
         if (keys.KeyE && G.S.heals.water <= 0) { reviveProg += dt; if (reviveProg >= 3) { reviveProg = 0; G.hiro.revive(false); } prompt = 'Reviving Hiro... ' + Math.floor((reviveProg / 3) * 100) + '%'; }
         else reviveProg = 0;
-      } else if (dH < 16 && G.bagCount() > 0 && G.hiro.alive) prompt = 'Press F to feed Hiro (' + G.bagCount() + ' items)';
-      else if (truck && P.mode === 'foot' && P.pos.distanceTo(truck.pos) < 9) prompt = 'Press E to drive the Mazda B3000';
+      } else if (dH < 16 && G.bagCount() > 0 && G.hiro.alive) prompt = tk('Press F', 'Tap FEED') + ' to feed Hiro (' + G.bagCount() + ' items)';
+      else if (truck && P.mode === 'foot' && P.pos.distanceTo(truck.pos) < 9) prompt = tk('Press E', 'Tap USE') + ' to drive the Mazda B3000';
       else reviveProg = 0;
       G.ui.setPrompt(prompt);
       updateCam(dt);
@@ -1962,8 +2021,22 @@ body.touch .slot { width: 52px; height: 36px; font-size: 8px; }
       $('menuClose').onclick = () => U.toggleMenu();
       $('menu').addEventListener('click', onMenuClick);
       document.querySelectorAll('#tabs button').forEach((b) => (b.onclick = () => { tab = b.dataset.tab; rbConfirm = false; renderMenu(); }));
-      if (window.matchMedia && matchMedia('(pointer: coarse)').matches) setupTouch();
+      setupTouch();
+      U.applyTouch();
+      const tb = $('touchBtn');
+      const label = () => { tb.textContent = 'Touch controls: ' + (G.touchPref === 'auto' ? 'Auto (' + (G.touchMode ? 'on' : 'off') + ')' : G.touchPref); };
+      tb.onclick = () => {
+        G.touchPref = G.touchPref === 'auto' ? 'on' : G.touchPref === 'on' ? 'off' : 'auto';
+        try { localStorage.setItem('ghk-touch', G.touchPref); } catch (e) { /* ignore */ }
+        G.computeTouchMode(); U.applyTouch(); label();
+      };
+      label();
       U.refreshAll();
+    },
+    applyTouch() {
+      $('touch').hidden = !G.touchMode;
+      document.body.classList.toggle('touch', !!G.touchMode);
+      if (!G.touchMode) { G.touch.mx = G.touch.my = 0; G.touch.fire = G.touch.jump = false; }
     },
 
     toast(msg, kind) {
@@ -2040,6 +2113,8 @@ body.touch .slot { width: 52px; height: 36px; font-size: 8px; }
       ids.forEach((id) => { const d = G.ITEMBY[id]; h += '<span class="chip" style="--c:#' + d.color.toString(16).padStart(6, '0') + '"><i></i>' + d.name + ' <b>x' + G.S.inv[id] + '</b></span>'; });
       $('bag').innerHTML = h || '<span class="empty">Bag empty. Catch items on the runway.</span>';
       setText('bagcount', G.bagCount() + '/' + G.BAG_MAX);
+      const n = G.bagCount();
+      $('btnFeed').textContent = n ? 'FEED (' + n + ')' : 'FEED';
     },
     refreshAll() {
       const S = G.S;
@@ -2175,26 +2250,49 @@ body.touch .slot { width: 52px; height: 36px; font-size: 8px; }
   }
 
   // ---------- Touch ----------
+  let touchBound = false;
   function setupTouch() {
-    $('touch').hidden = false; document.body.classList.add('touch');
-    const stick = $('stick'), knob = $('knob');
-    let sid = null, sx = 0, sy = 0;
-    stick.addEventListener('pointerdown', (e) => { sid = e.pointerId; stick.setPointerCapture(sid); const r = stick.getBoundingClientRect(); sx = r.left + r.width / 2; sy = r.top + r.height / 2; mv(e); });
-    stick.addEventListener('pointermove', (e) => { if (e.pointerId === sid) mv(e); });
-    const end = (e) => { if (e.pointerId === sid) { sid = null; G.touch.mx = G.touch.my = 0; knob.style.transform = ''; } };
-    stick.addEventListener('pointerup', end); stick.addEventListener('pointercancel', end);
-    function mv(e) { let dx = (e.clientX - sx) / 50, dy = (e.clientY - sy) / 50; const l = Math.hypot(dx, dy); if (l > 1) { dx /= l; dy /= l; } G.touch.mx = dx; G.touch.my = -dy; knob.style.transform = 'translate(' + dx * 40 + 'px,' + dy * 40 + 'px)'; }
-    const hold = (id, k) => { const b = $(id); b.addEventListener('pointerdown', (e) => { e.preventDefault(); G.touch[k] = true; }); ['pointerup', 'pointercancel', 'pointerleave'].forEach((n) => b.addEventListener(n, () => (G.touch[k] = false))); };
+    if (touchBound) return; touchBound = true;
+    const stick = $('stick'), knob = $('knob'), zone = $('stickZone');
+    let sid = null, cx = 0, cy = 0;
+    const home = () => { stick.style.left = ''; stick.style.top = ''; stick.style.bottom = ''; stick.classList.remove('live'); };
+    const mv = (e) => {
+      let dx = (e.clientX - cx) / 55, dy = (e.clientY - cy) / 55; const l = Math.hypot(dx, dy);
+      if (l > 1) { dx /= l; dy /= l; }
+      G.touch.mx = dx; G.touch.my = -dy; G.touch.mag = Math.min(1, l);
+      knob.style.transform = 'translate(' + dx * 42 + 'px,' + dy * 42 + 'px)';
+    };
+    zone.addEventListener('pointerdown', (e) => {
+      if (sid !== null) return;
+      sid = e.pointerId; zone.setPointerCapture(sid);
+      cx = e.clientX; cy = e.clientY;
+      stick.style.left = (cx - 65) + 'px'; stick.style.top = (cy - 65) + 'px'; stick.style.bottom = 'auto'; stick.classList.add('live');
+      G.unlockAudio(); mv(e);
+    });
+    zone.addEventListener('pointermove', (e) => { if (e.pointerId === sid) mv(e); });
+    const end = (e) => { if (e.pointerId === sid) { sid = null; G.touch.mx = G.touch.my = G.touch.mag = 0; knob.style.transform = ''; home(); } };
+    zone.addEventListener('pointerup', end); zone.addEventListener('pointercancel', end);
+
+    const hold = (id, k) => {
+      const b = $(id);
+      b.addEventListener('pointerdown', (e) => { e.preventDefault(); G.unlockAudio(); G.touch[k] = true; b.classList.add('down'); });
+      ['pointerup', 'pointercancel', 'pointerleave'].forEach((n) => b.addEventListener(n, () => { G.touch[k] = false; b.classList.remove('down'); }));
+    };
     hold('tFire', 'fire'); hold('tJump', 'jump');
     const tap = (id, fn) => $(id).addEventListener('pointerdown', (e) => { e.preventDefault(); G.unlockAudio(); if (!G.paused) fn(); });
-    tap('tFeed', () => G.hiro.feed()); tap('tUse', () => G.player.interact()); tap('tBomb', () => G.combat.stinkBomb());
+    tap('tFeed', () => G.hiro.feed()); tap('tBomb', () => G.combat.stinkBomb());
+    const use = $('tUse');
+    use.addEventListener('pointerdown', (e) => { e.preventDefault(); G.unlockAudio(); if (!G.paused) { G.player.interact(); G.holdKey('KeyE', true); } });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach((n) => use.addEventListener(n, () => G.holdKey('KeyE', false)));
     tap('tBoard', () => G.player.toggleBoard()); tap('tTruck', () => G.player.summonTruck());
-    $('tMenu').addEventListener('pointerdown', (e) => { e.preventDefault(); U.toggleMenu(); });
+
+    // look: drag anywhere on the 3D view
     let lid = null, lx = 0, ly = 0;
     const cv = $('c');
-    cv.addEventListener('pointerdown', (e) => { if (e.pointerType === 'mouse') return; lid = e.pointerId; lx = e.clientX; ly = e.clientY; });
-    cv.addEventListener('pointermove', (e) => { if (e.pointerId !== lid || G.paused) return; G.look((e.clientX - lx) * 1.4, (e.clientY - ly) * 1.4); lx = e.clientX; ly = e.clientY; });
+    cv.addEventListener('pointerdown', (e) => { if (e.pointerType === 'mouse' || lid !== null) return; lid = e.pointerId; lx = e.clientX; ly = e.clientY; });
+    cv.addEventListener('pointermove', (e) => { if (e.pointerId !== lid || G.paused) return; G.look((e.clientX - lx) * 1.5, (e.clientY - ly) * 1.5); lx = e.clientX; ly = e.clientY; });
     ['pointerup', 'pointercancel'].forEach((n) => cv.addEventListener(n, (e) => { if (e.pointerId === lid) lid = null; }));
+    document.addEventListener('gesturestart', (e) => e.preventDefault());
   }
 })();
 
@@ -2213,7 +2311,7 @@ body.touch .slot { width: 52px; height: 36px; font-size: 8px; }
     try {
       renderer = new T.WebGLRenderer({ canvas: $('c'), antialias: true });
     } catch (e) { fail('Your browser could not start 3D graphics (WebGL). Try a recent Chrome, Safari or Firefox.'); return; }
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, G.touchMode ? 1.5 : 2));
     renderer.shadowMap.enabled = true; renderer.shadowMap.type = T.PCFSoftShadowMap;
     scene = new T.Scene();
     camera = new T.PerspectiveCamera(62, 1, 0.5, 2000);
